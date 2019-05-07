@@ -29,6 +29,12 @@
     <Folder Include="wwwroot\images\produtos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="dotnet restore" />
   </Target>
