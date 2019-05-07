@@ -5,7 +5,19 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasaDoCodigo.MVC", "Item00\CasaDoCodigo\CasaDoCodigo.MVC.csproj", "{05320CF3-894A-4916-9A1A-91D584F79BDD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item00", "Item00", "{ED273BE1-670E-4270-8E58-5FC072E74608}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item00 - Projeto Inicial", "Item00 - Projeto Inicial", "{ED273BE1-670E-4270-8E58-5FC072E74608}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item01 - Instalando ASP.NET Core Identity", "Item01 - Instalando ASP.NET Core Identity", "{E7EDF92A-9911-4F02-A04A-6FE710FF743F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item02 - Configuração", "Item02 - Configuração", "{8DA7EA5A-4399-4BA0-920F-B646B0F0C8A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item03 - Obtendo Dados do Usuário Logado", "Item03 - Obtendo Dados do Usuário Logado", "{28CA266A-DE07-466C-9431-BB85F792B08D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item04 - Usando Id do Usuário no Pedido", "Item04 - Usando Id do Usuário no Pedido", "{91D7D252-A61F-4965-8150-3286E63D4C8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item05 -  Fazendo Login Externo", "Item05 -  Fazendo Login Externo", "{F304DD38-C535-4683-97F1-F6FF26EAA175}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasaDoCodigo.MVC", "Item01\CasaDoCodigo\CasaDoCodigo.MVC.csproj", "{E000C730-50C1-4E0F-915F-ACA74FD36D78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +29,17 @@ Global
 		{05320CF3-894A-4916-9A1A-91D584F79BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05320CF3-894A-4916-9A1A-91D584F79BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05320CF3-894A-4916-9A1A-91D584F79BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E000C730-50C1-4E0F-915F-ACA74FD36D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E000C730-50C1-4E0F-915F-ACA74FD36D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E000C730-50C1-4E0F-915F-ACA74FD36D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E000C730-50C1-4E0F-915F-ACA74FD36D78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05320CF3-894A-4916-9A1A-91D584F79BDD} = {ED273BE1-670E-4270-8E58-5FC072E74608}
+		{E000C730-50C1-4E0F-915F-ACA74FD36D78} = {E7EDF92A-9911-4F02-A04A-6FE710FF743F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6252B83-4D85-46E0-9FC0-818D66E88BF6}
