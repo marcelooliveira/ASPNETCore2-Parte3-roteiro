@@ -20,9 +20,15 @@ namespace CasaDoCodigo.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("AppIdentityContextConnection")));
 
-                services.AddDefaultIdentity<AppIdentityUser>()
-                    .AddErrorDescriber<CustomErrorDescriber>()
-                    .AddEntityFrameworkStores<AppIdentityContext>();
+            services.AddDefaultIdentity<AppIdentityUser>
+                (options =>
+                {
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
+                .AddErrorDescriber<CustomErrorDescriber>()
+                .AddEntityFrameworkStores<AppIdentityContext>();
             });
         }
     }
