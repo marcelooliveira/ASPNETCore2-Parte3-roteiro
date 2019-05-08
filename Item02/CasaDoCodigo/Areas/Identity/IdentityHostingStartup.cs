@@ -26,8 +26,6 @@ namespace CasaDoCodigo.Areas.Identity
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.User.AllowedUserNameCharacters =
-                        " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 })
                 .AddErrorDescriber<CustomErrorDescriber>()
                 .AddEntityFrameworkStores<AppIdentityContext>();
