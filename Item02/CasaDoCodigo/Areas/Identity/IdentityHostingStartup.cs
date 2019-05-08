@@ -21,6 +21,7 @@ namespace CasaDoCodigo.Areas.Identity
                         context.Configuration.GetConnectionString("AppIdentityContextConnection")));
 
                 services.AddDefaultIdentity<AppIdentityUser>()
+                    .AddErrorDescriber<CustomErrorDescriber>()
                     .AddEntityFrameworkStores<AppIdentityContext>();
             });
         }
