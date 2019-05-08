@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasaDoCodigo.MVC", "Item01\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasaDoCodigo.MVC", "Item02\CasaDoCodigo\CasaDoCodigo.MVC.csproj", "{A272900D-5A42-4817-9C61-9BB48B349811}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasaDoCodigo.MVC", "Item03\CasaDoCodigo\CasaDoCodigo.MVC.csproj", "{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A272900D-5A42-4817-9C61-9BB48B349811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A272900D-5A42-4817-9C61-9BB48B349811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A272900D-5A42-4817-9C61-9BB48B349811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{05320CF3-894A-4916-9A1A-91D584F79BDD} = {ED273BE1-670E-4270-8E58-5FC072E74608}
 		{E000C730-50C1-4E0F-915F-ACA74FD36D78} = {E7EDF92A-9911-4F02-A04A-6FE710FF743F}
 		{A272900D-5A42-4817-9C61-9BB48B349811} = {8DA7EA5A-4399-4BA0-920F-B646B0F0C8A8}
+		{5FA1D6A6-EDC6-49F2-B4F9-EC7A52E5170D} = {28CA266A-DE07-466C-9431-BB85F792B08D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6252B83-4D85-46E0-9FC0-818D66E88BF6}
