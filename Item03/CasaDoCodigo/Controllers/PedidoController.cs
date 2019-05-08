@@ -1,10 +1,13 @@
 ﻿using CasaDoCodigo.Models;
 using CasaDoCodigo.Models.ViewModels;
 using CasaDoCodigo.Repositories;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +38,8 @@ namespace CasaDoCodigo.Controllers
         [Authorize]
         public async Task<IActionResult> Carrinho(string codigo)
         {
+            string userId = GetUserId();
+
             if (!string.IsNullOrEmpty(codigo))
             {
                 await pedidoRepository.AddItemAsync(codigo);
@@ -78,5 +83,16 @@ namespace CasaDoCodigo.Controllers
         {
             return await pedidoRepository.UpdateQuantidadeAsync(itemPedido);
         }
+
+        private string GetUserId()
+        {
+            var claims = User.Claims.ToList();
+            foreach (var claim in claims)
+            {
+                Debug.WriteLine($"claim: {claim.Type}, valor: {claim.Value}");
+            }
+            return User.FindFirst(JwtClaimTypes.Subject)?.Value;
+        }
+
     }
 }

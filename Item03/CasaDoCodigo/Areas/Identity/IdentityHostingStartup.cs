@@ -1,6 +1,7 @@
 ﻿using System;
 using CasaDoCodigo.Areas.Identity.Data;
 using CasaDoCodigo.Models;
+using IdentityModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -26,6 +27,8 @@ namespace CasaDoCodigo.Areas.Identity
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
+                    options.ClaimsIdentity.UserIdClaimType = JwtClaimTypes.Subject;
+                    options.ClaimsIdentity.UserNameClaimType = JwtClaimTypes.Name;
                 })
                 .AddErrorDescriber<CustomErrorDescriber>()
                 .AddEntityFrameworkStores<AppIdentityContext>();
