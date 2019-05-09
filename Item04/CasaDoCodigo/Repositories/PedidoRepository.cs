@@ -14,10 +14,10 @@ namespace CasaDoCodigo.Repositories
 {
     public interface IPedidoRepository
     {
-        Task<Pedido> GetPedidoAsync();
-        Task AddItemAsync(string codigo);
-        Task<UpdateQuantidadeResponse> UpdateQuantidadeAsync(ItemPedido itemPedido);
-        Task<Pedido> UpdateCadastroAsync(Cadastro cadastro);
+        Task<Pedido> GetPedidoAsync(string clienteId);
+        Task AddItemAsync(string codigo, string clienteId);
+        Task<UpdateQuantidadeResponse> UpdateQuantidadeAsync(ItemPedido itemPedido, string clienteId);
+        Task<Pedido> UpdateCadastroAsync(string clienteId, Cadastro cadastro);
     }
 
     public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
@@ -37,7 +37,7 @@ namespace CasaDoCodigo.Repositories
             this.cadastroRepository = cadastroRepository;
         }
 
-        public async Task AddItemAsync(string codigo)
+        public async Task AddItemAsync(string codigo, string clienteId)
         {
             var produto = await
                             contexto.Set<Produto>()
@@ -49,7 +49,7 @@ namespace CasaDoCodigo.Repositories
                 throw new ArgumentException("Produto não encontrado");
             }
 
-            var pedido = await GetPedidoAsync();
+            var pedido = await GetPedidoAsync(clienteId);
 
             var itemPedido = await
                                 contexto.Set<ItemPedido>()
@@ -68,9 +68,9 @@ namespace CasaDoCodigo.Repositories
             }
         }
 
-        public async Task<Pedido> GetPedidoAsync()
+        public async Task<Pedido> GetPedidoAsync(string clienteId)
         {
-            var pedidoId = httpHelper.GetPedidoId();
+            var pedidoId = httpHelper.GetPedidoId(clienteId);
             var pedido =
                 await dbSet
                 .Include(p => p.Itens)
@@ -82,16 +82,16 @@ namespace CasaDoCodigo.Repositories
 
             if (pedido == null)
             {
-                pedido = new Pedido(httpHelper.GetCadastro());
+                pedido = new Pedido(clienteId, httpHelper.GetCadastro(clienteId));
                 await dbSet.AddAsync(pedido);
                 await contexto.SaveChangesAsync();
-                httpHelper.SetPedidoId(pedido.Id);
+                httpHelper.SetPedidoId(clienteId, pedido.Id);
             }
 
             return pedido;
         }
 
-        public async Task<UpdateQuantidadeResponse> UpdateQuantidadeAsync(ItemPedido itemPedido)
+        public async Task<UpdateQuantidadeResponse> UpdateQuantidadeAsync(ItemPedido itemPedido, string clienteId)
         {
             var itemPedidoDB = await GetItemPedidoAsync(itemPedido.Id);
 
@@ -106,7 +106,7 @@ namespace CasaDoCodigo.Repositories
 
                 await contexto.SaveChangesAsync();
 
-                var pedido = await GetPedidoAsync();
+                var pedido = await GetPedidoAsync(clienteId);
                 var carrinhoViewModel = new CarrinhoViewModel(pedido.Itens);
 
                 return new UpdateQuantidadeResponse(itemPedidoDB, carrinhoViewModel);
@@ -115,12 +115,12 @@ namespace CasaDoCodigo.Repositories
             throw new ArgumentException("ItemPedido não encontrado");
         }
 
-        public async Task<Pedido> UpdateCadastroAsync(Cadastro cadastro)
+        public async Task<Pedido> UpdateCadastroAsync(string clienteId, Cadastro cadastro)
         {
-            var pedido = await GetPedidoAsync();
+            var pedido = await GetPedidoAsync(clienteId);
             await cadastroRepository.UpdateAsync(pedido.Cadastro.Id, cadastro);
-            httpHelper.ResetPedidoId();
-            httpHelper.SetCadastro(pedido.Cadastro);
+            httpHelper.ResetPedidoId(clienteId);
+            httpHelper.SetCadastro(clienteId, pedido.Cadastro);
             return pedido;
         }
 

@@ -42,10 +42,10 @@ namespace CasaDoCodigo.Controllers
 
             if (!string.IsNullOrEmpty(codigo))
             {
-                await pedidoRepository.AddItemAsync(codigo);
+                await pedidoRepository.AddItemAsync(codigo, GetUserId());
             }
 
-            var pedido = await pedidoRepository.GetPedidoAsync();
+            var pedido = await pedidoRepository.GetPedidoAsync(GetUserId());
             List<ItemPedido> itens = pedido.Itens;
             CarrinhoViewModel carrinhoViewModel = new CarrinhoViewModel(itens);
             return base.View(carrinhoViewModel);
@@ -54,7 +54,7 @@ namespace CasaDoCodigo.Controllers
         [Authorize]
         public async Task<IActionResult> Cadastro()
         {
-            var pedido = await pedidoRepository.GetPedidoAsync();
+            var pedido = await pedidoRepository.GetPedidoAsync(GetUserId());
 
             if (pedido == null)
             {
@@ -71,7 +71,7 @@ namespace CasaDoCodigo.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View(await pedidoRepository.UpdateCadastroAsync(cadastro));
+                return View(await pedidoRepository.UpdateCadastroAsync(GetUserId(), cadastro));
             }
             return RedirectToAction("Cadastro");
         }
@@ -81,7 +81,7 @@ namespace CasaDoCodigo.Controllers
         [Authorize]
         public async Task<UpdateQuantidadeResponse> UpdateQuantidade([FromBody]ItemPedido itemPedido)
         {
-            return await pedidoRepository.UpdateQuantidadeAsync(itemPedido);
+            return await pedidoRepository.UpdateQuantidadeAsync(itemPedido, GetUserId());
         }
 
         private string GetUserId()
