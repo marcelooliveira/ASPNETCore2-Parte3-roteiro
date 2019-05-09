@@ -61,6 +61,11 @@ namespace CasaDoCodigo.Controllers
                 return RedirectToAction("Carrossel");
             }
 
+            if (string.IsNullOrEmpty(pedido.Cadastro.Email))
+            {
+                pedido.Cadastro.Email = GetUserEmail();
+            }
+
             return View(pedido.Cadastro);
         }
 
@@ -94,5 +99,9 @@ namespace CasaDoCodigo.Controllers
             return User.FindFirst(JwtClaimTypes.Subject)?.Value;
         }
 
+        private string GetUserEmail()
+        {
+            return User.FindFirst(JwtClaimTypes.Name)?.Value;
+        }
     }
 }

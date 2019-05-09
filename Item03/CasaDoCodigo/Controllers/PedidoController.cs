@@ -1,9 +1,11 @@
-﻿using CasaDoCodigo.Models;
+﻿using CasaDoCodigo.Areas.Identity.Data;
+using CasaDoCodigo.Models;
 using CasaDoCodigo.Models.ViewModels;
 using CasaDoCodigo.Repositories;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -61,6 +63,11 @@ namespace CasaDoCodigo.Controllers
                 return RedirectToAction("Carrossel");
             }
 
+            if (string.IsNullOrEmpty(pedido.Cadastro.Email))
+            {
+                pedido.Cadastro.Email = GetUserEmail();
+            }
+
             return View(pedido.Cadastro);
         }
 
@@ -94,5 +101,9 @@ namespace CasaDoCodigo.Controllers
             return User.FindFirst(JwtClaimTypes.Subject)?.Value;
         }
 
+        private string GetUserEmail()
+        {
+            return User.FindFirst(JwtClaimTypes.Name)?.Value;
+        }
     }
 }
