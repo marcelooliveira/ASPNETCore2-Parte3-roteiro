@@ -32,6 +32,8 @@ namespace CasaDoCodigo
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
+
+
             services.AddMvc();
             services.AddDistributedMemoryCache();
             services.AddSession();
@@ -48,6 +50,15 @@ namespace CasaDoCodigo
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
             services.AddTransient<ICadastroRepository, CadastroRepository>();
+
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = 
+                    Configuration["Authentication_Microsoft_ApplicationId"];
+                microsoftOptions.ClientSecret = 
+                    Configuration["Authentication_Microsoft_Password"];
+            });
         }
 
 
