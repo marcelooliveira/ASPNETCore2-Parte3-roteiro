@@ -19,12 +19,15 @@ namespace CasaDoCodigo.Controllers
     {
         private readonly IProdutoRepository produtoRepository;
         private readonly IPedidoRepository pedidoRepository;
+        private readonly UserManager<AppIdentityUser> userManager;
 
         public PedidoController(IProdutoRepository produtoRepository,
-            IPedidoRepository pedidoRepository)
+            IPedidoRepository pedidoRepository,
+            UserManager<AppIdentityUser> userManager)
         {
             this.produtoRepository = produtoRepository;
             this.pedidoRepository = pedidoRepository;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> Carrossel()
@@ -63,10 +66,16 @@ namespace CasaDoCodigo.Controllers
                 return RedirectToAction("Carrossel");
             }
 
-            if (string.IsNullOrEmpty(pedido.Cadastro.Email))
-            {
-                pedido.Cadastro.Email = GetUserEmail();
-            }
+            var usuario = await userManager.GetUserAsync(this.User);
+            pedido.Cadastro.Nome = usuario?.UserName;
+            pedido.Cadastro.Email = usuario?.Email;
+            pedido.Cadastro.Telefone = usuario?.PhoneNumber;
+            pedido.Cadastro.Endereco = usuario?.Endereco;
+            pedido.Cadastro.Complemento = usuario?.Complemento;
+            pedido.Cadastro.Bairro = usuario?.Bairro;
+            pedido.Cadastro.Municipio = usuario?.Municipio;
+            pedido.Cadastro.UF = usuario?.UF;
+            pedido.Cadastro.CEP = usuario?.CEP;
 
             return View(pedido.Cadastro);
         }
@@ -78,6 +87,15 @@ namespace CasaDoCodigo.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usuario = await userManager.GetUserAsync(this.User);
+                await userManager.SetPhoneNumberAsync(usuario, cadastro.Telefone);
+                usuario.Endereco = cadastro.Endereco;
+                usuario.Complemento = cadastro.Complemento;
+                usuario.Bairro = cadastro.Bairro;
+                usuario.Municipio = cadastro.Municipio;
+                usuario.UF = cadastro.UF;
+                usuario.CEP = cadastro.CEP;
+                await userManager.UpdateAsync(usuario);
                 return View(await pedidoRepository.UpdateCadastroAsync(cadastro));
             }
             return RedirectToAction("Cadastro");
@@ -99,11 +117,6 @@ namespace CasaDoCodigo.Controllers
                 Debug.WriteLine($"claim: {claim.Type}, valor: {claim.Value}");
             }
             return User.FindFirst(JwtClaimTypes.Subject)?.Value;
-        }
-
-        private string GetUserEmail()
-        {
-            return User.FindFirst(JwtClaimTypes.Name)?.Value;
         }
     }
 }
